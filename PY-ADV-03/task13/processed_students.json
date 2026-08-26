@@ -1,0 +1,26 @@
+[
+    {
+        "id": 101,
+        "name": "Teja",
+        "course": "Python AI/ML",
+        "score": 85,
+        "grade": "B",
+        "status": "Pass"
+    },
+    {
+        "id": 102,
+        "name": "Ajay",
+        "course": "Data Science",
+        "score": 78,
+        "grade": "C",
+        "status": "Pass"
+    },
+    {
+        "id": 103,
+        "name": "Sumanth",
+        "course": "Machine Learning",
+        "score": 91,
+        "grade": "A",
+        "status": "Pass"
+    }
+]
