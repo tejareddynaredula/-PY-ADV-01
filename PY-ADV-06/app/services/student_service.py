@@ -34,3 +34,14 @@ class StudentService:
         raise StudentNotFoundError(
             f"Student with ID {student_id} was not found."
         )
+
+    def delete_student(self, student_id: int) -> None:
+        """Delete a student by ID."""
+        for student in self.students:
+            if student.student_id == student_id:
+                self.students.remove(student)
+                return
+
+        raise StudentNotFoundError(
+            f"Student with ID {student_id} was not found."
+        )
