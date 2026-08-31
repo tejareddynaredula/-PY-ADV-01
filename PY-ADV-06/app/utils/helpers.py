@@ -9,3 +9,23 @@ def find_student_by_id(
         if student.student_id == student_id:
             return student
     return None
+
+
+def validate_student_data(
+    student_id: int,
+    name: str,
+    age: int,
+    course: str,
+) -> None:
+    """Validate student information before creation or update."""
+    if student_id <= 0:
+        raise ValueError("Student ID must be greater than 0.")
+
+    if not name.strip():
+        raise ValueError("Student name cannot be empty.")
+
+    if age <= 0:
+        raise ValueError("Student age must be greater than 0.")
+
+    if not course.strip():
+        raise ValueError("Student course cannot be empty.")

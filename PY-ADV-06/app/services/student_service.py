@@ -1,5 +1,6 @@
 from app.exceptions.student_exceptions import StudentNotFoundError
 from app.models.student import Student
+from app.utils.helpers import validate_student_data
 
 
 class StudentService:
@@ -10,6 +11,12 @@ class StudentService:
 
     def add_student(self, student: Student) -> None:
         """Add a student to the student list."""
+        validate_student_data(
+            student.student_id,
+            student.name,
+            student.age,
+            student.course,
+        )
         self.students.append(student)
 
     def get_students(self) -> list[Student]:
@@ -24,6 +31,8 @@ class StudentService:
         course: str,
     ) -> None:
         """Update an existing student's details."""
+        validate_student_data(student_id, name, age, course)
+
         for student in self.students:
             if student.student_id == student_id:
                 student.name = name
