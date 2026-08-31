@@ -89,7 +89,17 @@ class TestStudentManagement(unittest.TestCase):
             self.service.add_student(
                 Student(1, "Teja", 22, "")
             )
+    def test_find_student_service(self):
+        self.service.add_student(self.student)
 
+        result = self.service.find_student(1)
+
+        self.assertEqual(result.name, "Teja")
+        self.assertEqual(result.course, "Python")
+
+    def test_find_student_service_not_found(self):
+        with self.assertRaises(StudentNotFoundError):
+            self.service.find_student(99)
 
 if __name__ == "__main__":
     unittest.main()

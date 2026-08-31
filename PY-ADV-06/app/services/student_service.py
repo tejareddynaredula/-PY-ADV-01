@@ -26,6 +26,20 @@ class StudentService:
         """Return all students."""
         return self.students
 
+    def find_student(self, student_id: int) -> Student:
+        """Find a student by ID."""
+        for student in self.students:
+            if student.student_id == student_id:
+                self.logger.info(
+                    "Student %s found successfully.", student_id
+                )
+                return student
+
+        self.logger.error("Student %s not found.", student_id)
+        raise StudentNotFoundError(
+            f"Student with ID {student_id} was not found."
+        )
+
     def update_student(
         self,
         student_id: int,
