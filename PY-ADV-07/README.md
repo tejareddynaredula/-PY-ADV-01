@@ -1,54 +1,22 @@
-\# PY-ADV-07 – Python Database Programming
+# PY-ADV-07 – Employee Database Management System
 
+## Overview
 
+A Python-based Employee Database Management System built using PostgreSQL and Psycopg.
 
-\## Objective
+The project demonstrates relational database concepts, SQL operations, database connections, utility functions, CRUD operations, exception handling, and unit testing.
 
+## Technologies
 
+- Python 3.13.14
+- PostgreSQL 18.6
+- Psycopg 3.3.5
+- unittest
 
-Build a strong database foundation before moving into Django/Flask or AI/ML data work.
+## Database
 
-
-
-\## Task 1 – Relational Database Fundamentals
-
-
-
-\### Completed
-
-
-
-\- Understood the fundamentals of relational databases.
-
-\- Installed PostgreSQL 18.6 on Windows.
-
-\- Verified the PostgreSQL installation.
-
-\- Successfully connected to PostgreSQL using the `postgres` user.
-
-\- Verified the PostgreSQL command-line interface using `psql`.
-
-
-
-\### Environment
-
-
-
-\- Python: 3.13.14
-
-\- PostgreSQL: 18.6
-
-
-
-\### Verification
-
-
-
-PostgreSQL connection was successfully established using:
-
-
+Database name:
 
 ```text
-
-psql -U postgres
+employee_management
 
