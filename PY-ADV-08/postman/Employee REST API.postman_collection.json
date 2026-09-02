@@ -1,0 +1,32 @@
+{
+  "info": {
+    "_postman_id": "54d55fc6-ce44-4c44-9386-44fa7a75c88c",
+    "name": "Employee REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57907767"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/employees",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "employees"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
