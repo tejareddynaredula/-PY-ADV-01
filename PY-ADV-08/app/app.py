@@ -52,7 +52,12 @@ def create_employee():
 
     if not data:
         return jsonify({"error": "JSON data is required"}), 400
-    
+
+    required = ["name", "age", "department", "salary"]
+
+    if not all(field in data for field in required):
+        return jsonify({"error": "All employee fields are required"}), 400
+
     new_employee = {
         "id": len(employees) + 1,
         "name": data["name"],
@@ -79,7 +84,12 @@ def update_employee(employee_id):
     data = request.get_json(silent=True)
 
     if not data:
-         return jsonify({"error": "JSON data is required"}), 400
+        return jsonify({"error": "JSON data is required"}), 400
+
+    required = ["name", "age", "department", "salary"]
+
+    if not all(field in data for field in required):
+        return jsonify({"error": "All employee fields are required"}), 400
 
     employee["name"] = data["name"]
     employee["age"] = data["age"]
