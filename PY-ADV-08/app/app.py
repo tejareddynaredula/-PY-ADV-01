@@ -1,7 +1,15 @@
+import logging
 from flask import Flask, jsonify, request
 from database.connection import get_connection
 
 app = Flask(__name__)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+logger = logging.getLogger(__name__)
 
 
 def employee_data(row):
@@ -16,11 +24,14 @@ def employee_data(row):
 
 @app.route("/", methods=["GET"])
 def home():
+    logger.info("GET /")
     return jsonify({"message": "Employee REST API is running"})
 
 
 @app.route("/employees", methods=["GET"])
 def get_employees():
+    logger.info("GET /employees")
+
     conn = get_connection()
     cur = conn.cursor()
     cur.execute("""
@@ -39,6 +50,8 @@ def get_employees():
 
 @app.route("/employees/<int:employee_id>", methods=["GET"])
 def get_employee(employee_id):
+    logger.info("GET /employees/%s", employee_id)
+
     conn = get_connection()
     cur = conn.cursor()
     cur.execute("""
@@ -53,6 +66,7 @@ def get_employee(employee_id):
     conn.close()
 
     if row is None:
+        logger.warning("Employee %s not found", employee_id)
         return jsonify({"error": "Employee not found"}), 404
 
     return jsonify(employee_data(row))
@@ -60,6 +74,8 @@ def get_employee(employee_id):
 
 @app.route("/employees", methods=["POST"])
 def create_employee():
+    logger.info("POST /employees")
+
     data = request.get_json(silent=True)
 
     if not data:
@@ -94,6 +110,8 @@ def create_employee():
     cur.close()
     conn.close()
 
+    logger.info("Employee %s created", employee_id)
+
     return jsonify({
         "id": employee_id,
         "name": data["name"],
@@ -105,6 +123,8 @@ def create_employee():
 
 @app.route("/employees/<int:employee_id>", methods=["PUT"])
 def update_employee(employee_id):
+    logger.info("PUT /employees/%s", employee_id)
+
     data = request.get_json(silent=True)
 
     if not data:
@@ -140,11 +160,14 @@ def update_employee(employee_id):
     if cur.rowcount == 0:
         cur.close()
         conn.close()
+        logger.warning("Employee %s not found", employee_id)
         return jsonify({"error": "Employee not found"}), 404
 
     conn.commit()
     cur.close()
     conn.close()
+
+    logger.info("Employee %s updated", employee_id)
 
     return jsonify({
         "id": employee_id,
@@ -157,6 +180,8 @@ def update_employee(employee_id):
 
 @app.route("/employees/<int:employee_id>", methods=["DELETE"])
 def delete_employee(employee_id):
+    logger.info("DELETE /employees/%s", employee_id)
+
     conn = get_connection()
     cur = conn.cursor()
 
@@ -168,17 +193,21 @@ def delete_employee(employee_id):
     if cur.rowcount == 0:
         cur.close()
         conn.close()
+        logger.warning("Employee %s not found", employee_id)
         return jsonify({"error": "Employee not found"}), 404
 
     conn.commit()
     cur.close()
     conn.close()
 
+    logger.info("Employee %s deleted", employee_id)
+
     return jsonify({"message": "Employee deleted successfully"})
 
 
 @app.errorhandler(404)
 def not_found(error):
+    logger.warning("Resource not found")
     return jsonify({"error": "Resource not found"}), 404
 
 
