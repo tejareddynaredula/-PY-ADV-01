@@ -48,8 +48,11 @@ def get_employee(employee_id):
 
 @app.route("/employees", methods=["POST"])
 def create_employee():
-    data = request.get_json()
+    data = request.get_json(silent=True)
 
+    if not data:
+        return jsonify({"error": "JSON data is required"}), 400
+    
     new_employee = {
         "id": len(employees) + 1,
         "name": data["name"],
@@ -73,7 +76,10 @@ def update_employee(employee_id):
     if employee is None:
         return jsonify({"error": "Employee not found"}), 404
 
-    data = request.get_json()
+    data = request.get_json(silent=True)
+
+    if not data:
+         return jsonify({"error": "JSON data is required"}), 400
 
     employee["name"] = data["name"]
     employee["age"] = data["age"]
