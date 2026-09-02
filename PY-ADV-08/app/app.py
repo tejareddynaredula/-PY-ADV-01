@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-
 employees = [
     {
         "id": 1,
@@ -23,9 +22,7 @@ employees = [
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify({
-        "message": "Employee REST API is running"
-    })
+    return jsonify({"message": "Employee REST API is running"})
 
 
 @app.route("/employees", methods=["GET"])
@@ -111,9 +108,12 @@ def delete_employee(employee_id):
 
     employees.remove(employee)
 
-    return jsonify({
-        "message": "Employee deleted successfully"
-    })
+    return jsonify({"message": "Employee deleted successfully"})
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"error": "Resource not found"}), 404
 
 
 if __name__ == "__main__":
