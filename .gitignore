@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+employees.db
+PY-ADV-10/logs/*.log
+.ipynb_checkpoints/
